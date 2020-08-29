@@ -65,11 +65,7 @@ const NoteApp = () => {
         <div>
             <h1>Notes</h1>
             {notes.map((note) => (
-                <div key={note.title}>
-                    <h3>{note.title}</h3>
-                    <p>{note.body}</p>
-                    <button onClick={() => removeNote(note.title)}>x</button>
-                </div>
+                <Note key={note.title} note={note} removeNote={removeNote} />
             ))}
             <p>Add Note</p>
             <form onSubmit={addNote}>
@@ -77,6 +73,24 @@ const NoteApp = () => {
                 <textarea value={body} onChange={(e) => setBody(e.target.value)} />
                 <button>add note</button>
             </form>
+        </div>
+    )
+}
+
+const Note = ({ note, removeNote }) => {
+    useEffect(() => {
+        console.log('Setting up effect!')
+
+        return () => {  // componentDidUnmount
+            console.log('Cleaning up effect!')
+        }
+    }, [])
+
+    return (
+        <div>
+            <h3>{note.title}</h3>
+            <p>{note.body}</p>
+            <button onClick={() => removeNote(note.title)}>x</button>
         </div>
     )
 }
